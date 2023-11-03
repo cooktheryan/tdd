@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tdd
+  namespace: my-go-app
+  labels:
+    app: tdd
+    app.kubernetes.io/component: backstage
+    backstage.io/kubernetes-id: my-go-app
+spec:
+  rules:
+  - host: 
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: tdd
+              port:
+                number: 8080

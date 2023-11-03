@@ -1,0 +1,28 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: tdd
+  namespace: my-go-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tdd
+  template:
+    metadata:
+      labels:
+        app: tdd
+        app.kubernetes.io/component: backstage
+        backstage.io/kubernetes-id: my-go-app
+    spec:
+      containers:
+        - name: tdd
+          image: image-registry.openshift-image-registry.svc:5000/my-go-app/tdd:latest
+          ports:
+            - name: http-8080
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
